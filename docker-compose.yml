@@ -1,0 +1,32 @@
+version: "3.7"
+
+networks:
+  default:
+    driver: bridge
+ 
+services:
+  keycloak:
+    hostname: keycloak
+    container_name: keycloak
+    image: jboss/keycloak:9.0.0
+    restart: always
+    environment:
+      KEYCLOAK_USER:   
+      KEYCLOAK_PASSWORD: 
+      PROXY_ADDRESS_FORWARDING: "true"
+
+  tunnel:
+    # Ad-hoc build pending official image
+    build: https://github.com/cloudflare/cloudflared.git
+    container_name: tunnel
+    environment:
+      TUNNEL_HOSTNAME: 
+      TUNNEL_URL: http://keycloak:8080
+      TUNNEL_ORIGIN_CERT: /.cloudflared/cert.pem
+      TUNNEL_RETRIES: 10
+    volumes:
+      - "~/.cloudflared/cert.pem:/.cloudflared/cert.pem"
+    restart: always
+    command: ["tunnel"]
+    depends_on: 
+      - keycloak
