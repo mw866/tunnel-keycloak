@@ -1,13 +1,14 @@
 # Cloudflare Argo Tunnel with Keycloak
 
-Create a Keycloak test environment on the Internet using Docker-compose and Cloudflare Argo Tunnel with just a few commands.
+Create a Keycloak lab environment on the Internet using `docker-compose` and Cloudflare Argo Tunnel (`cloudflared`) with just a few commands.
 
+## Run on Docker Desktop locally
 
-## Run on local docker 
+1. Install Cloudflare Argo Tunnel binary `cloudflared` on your local desktop device [Download link](https://developers.cloudflare.com/argo-tunnel/downloads/)
 
-1. Install `docker` and `cloudflared`
+2. Install Docker Desktop [Download link](https://www.docker.com/products/docker-desktop)
 
-2. Obtain a Tunnel certificate. 
+2. Obtain a Argo Tunnel certificate 
 
 ```
 cloudflared tunnel login
@@ -26,29 +27,25 @@ export TUNNEL_HOSTNAME=<keycloak hostname>
 docker-compose up
 ```
 
-5. Open the Keycloak's web admin UI at
-https://TUNNEL_HOSTNAME
-
-
-
+5. Open the Keycloak's web admin UI at `https://TUNNEL_HOSTNAME`
 
 ## Docker Cheatsheet
 ```
-docker-compose up
-docker-compose logs -f
+docker-compose up 
 docker-compose down
 docker-compose pause
 docker-compose unpause
-
+docker-compose logs -f
+docker ps
 ```
 
 ## Known Issues
 
-`tunnel      | time="2020-02-26T08:54:50Z" level=error msg="unable to connect to the origin" error="Get http://keycloak:8080: dial tcp 172.21.0.2:8080: connect: connection refused"`
-`cloudflared` starts to connect to `keycloak` before `keycloak` is ready. 
+### `tunnel      | time="2020-02-26T08:54:50Z" level=error msg="unable to connect to the origin" error="Get http://keycloak:8080: dial tcp 172.21.0.2:8080: connect: connection refused"`
+
+Explanation: `cloudflared` starts to connect to `keycloak` before `keycloak` is ready. 
 
 Solution: Increase `TUNNEL_RETRIES`
-
 
 
 ## Reference
