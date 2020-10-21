@@ -27,7 +27,7 @@ export TUNNEL_HOSTNAME=<keycloak hostname>
 docker-compose up
 ```
 
-5. Open the Keycloak's web admin UI at `https://TUNNEL_HOSTNAME`
+5. Open the Keycloak's web admin UI at `https://$TUNNEL_HOSTNAME`
 
 ## Docker Cheatsheet
 ```
@@ -41,7 +41,8 @@ docker ps
 
 ## Known Issues
 
-### `tunnel      | time="2020-02-26T08:54:50Z" level=error msg="unable to connect to the origin" error="Get http://keycloak:8080: dial tcp 172.21.0.2:8080: connect: connection refused"`
+### Connection refused
+```tunnel      | time="2020-02-26T08:54:50Z" level=error msg="unable to connect to the origin" error="Get http://keycloak:8080: dial tcp 172.21.0.2:8080: connect: connection refused"```
 
 Explanation: `cloudflared` starts to connect to `keycloak` before `keycloak` is ready. 
 
