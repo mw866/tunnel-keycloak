@@ -48,6 +48,10 @@ Explanation: `cloudflared` starts to connect to `keycloak` before `keycloak` is 
 
 Solution: Increase `TUNNEL_RETRIES`
 
+### The official Keycloak docker images do not support architecture except `amd64`
+
+Solution: Change the `image` in the `docker-compose.yml` to my unofficial Keycloak image at [mw866/keycloak](https://hub.docker.com/r/mw866/keycloak)
+
 
 ## Reference
 * [docker-compose file reference](https://docs.docker.com/compose/)
